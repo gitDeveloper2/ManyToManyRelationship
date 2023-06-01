@@ -1,4 +1,4 @@
-package com.bezkoder.spring.hibernate.manytomany.exception;
+package com.spring.hibernate.manytomany.exception;
 
 import java.util.Date;
 

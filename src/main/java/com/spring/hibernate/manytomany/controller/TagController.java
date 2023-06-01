@@ -1,20 +1,20 @@
-package com.bezkoder.spring.hibernate.manytomany.controller;
+package com.spring.hibernate.manytomany.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spring.hibernate.manytomany.exception.ResourceNotFoundException;
+import com.spring.hibernate.manytomany.repository.TagRepository;
+import com.spring.hibernate.manytomany.repository.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.bezkoder.spring.hibernate.manytomany.exception.ResourceNotFoundException;
-import com.bezkoder.spring.hibernate.manytomany.model.Tag;
-import com.bezkoder.spring.hibernate.manytomany.model.Tutorial;
-import com.bezkoder.spring.hibernate.manytomany.repository.TagRepository;
-import com.bezkoder.spring.hibernate.manytomany.repository.TutorialRepository;
+import com.spring.hibernate.manytomany.model.Tag;
+import com.spring.hibernate.manytomany.model.Tutorial;
 
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class TagController {
@@ -68,23 +68,32 @@ public class TagController {
 
   @PostMapping("/tutorials/{tutorialId}/tags")
   public ResponseEntity<Tag> addTag(@PathVariable(value = "tutorialId") Long tutorialId, @RequestBody Tag tagRequest) {
+    System.out.println("Tags Post"+tagRequest);
     Tag tag = tutorialRepository.findById(tutorialId).map(tutorial -> {
+      System.out.println("Tutorials ::"+tutorial);
       long tagId = tagRequest.getId();
-      
+      System.out.println("Tag requestID ::"+tagId);
+
       // tag is existed
       if (tagId != 0L) {
+        System.out.println("Inside tagId !=0L");
         Tag _tag = tagRepository.findById(tagId)
             .orElseThrow(() -> new ResourceNotFoundException("Not found Tag with id = " + tagId));
+        System.out.println("Tag::"+_tag);
         tutorial.addTag(_tag);
+        System.out.println("Tag::added");
         tutorialRepository.save(tutorial);
         return _tag;
       }
-      
+      System.out.println("Outside if");
       // add and create new Tag
       tutorial.addTag(tagRequest);
-      return tagRepository.save(tagRequest);
+      System.out.println("added");
+//      return tagRepository.save(tagRequest);
+      tutorialRepository.save(tutorial);
+      return tagRequest;
     }).orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + tutorialId));
-
+    System.out.println("Leaving "+tag);
     return new ResponseEntity<>(tag, HttpStatus.CREATED);
   }
 

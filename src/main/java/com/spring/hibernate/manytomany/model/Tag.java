@@ -1,4 +1,4 @@
-package com.bezkoder.spring.hibernate.manytomany.model;
+package com.spring.hibernate.manytomany.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +49,14 @@ public class Tag {
 
   public void setTutorials(Set<Tutorial> tutorials) {
     this.tutorials = tutorials;
-  }  
-  
+  }
+
+  @Override
+  public String toString() {
+    return "Tag{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", tutorials=" + tutorials +
+            '}';
+  }
 }

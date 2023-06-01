@@ -1,18 +1,18 @@
-package com.bezkoder.spring.hibernate.manytomany.controller;
+package com.spring.hibernate.manytomany.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spring.hibernate.manytomany.exception.ResourceNotFoundException;
+import com.spring.hibernate.manytomany.repository.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.bezkoder.spring.hibernate.manytomany.exception.ResourceNotFoundException;
-import com.bezkoder.spring.hibernate.manytomany.model.Tutorial;
-import com.bezkoder.spring.hibernate.manytomany.repository.TutorialRepository;
+import com.spring.hibernate.manytomany.model.Tutorial;
 
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class TutorialController {

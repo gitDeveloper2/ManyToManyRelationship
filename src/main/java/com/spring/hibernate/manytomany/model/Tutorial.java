@@ -1,4 +1,4 @@
-package com.bezkoder.spring.hibernate.manytomany.model;
+package com.spring.hibernate.manytomany.model;
 
 import java.util.HashSet;
 import java.util.Set;
